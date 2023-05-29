@@ -1,7 +1,7 @@
 defmodule PentoWeb.Router do
   use PentoWeb, :router
 
-  alias PentoWeb.{Layouts, PageController, Telemetry, WrongLive}
+  alias PentoWeb.{Layouts, PageController, Telemetry, GuessingGameLive}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -20,7 +20,7 @@ defmodule PentoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    live "/guess", WrongLive
+    live "/guess", GuessingGameLive
   end
 
   # Other scopes may use custom stacks.
