@@ -27,7 +27,29 @@ config :pento, PentoWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :pento, Pento.Mailer, adapter: Swoosh.Adapters.Local
+# config :pento, Pento.Mailer, adapter: Swoosh.Adapters.Local
+
+# config :pento, Pento.Mailer,
+#   adapter: Swoosh.Adapters.SMTP,
+#   relay: "localhost",
+#   # relay: "smtp.avengers.com",
+#   # username: "tonystark",
+#   # password: "ilovepepperpotts",
+#   # ssl: true,
+#   # tls: :always,
+#   # auth: :always,
+#   # port: 1025,
+#   # retries: 2,
+#   no_mx_lookups: true
+
+# config/config.exs
+config :pento, Pento.Mailer,
+  adapter: Swoosh.Adapters.Sendmail,
+  cmd_path: "/usr/bin/sendmail",
+  cmd_args: "-N delay,failure,success"
+
+# Default false
+# qmail: true
 
 # Configure esbuild (the version is required)
 config :esbuild,

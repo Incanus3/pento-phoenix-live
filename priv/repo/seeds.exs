@@ -33,4 +33,4 @@ defmodule Users do
   end
 end
 
-Users.create(%{email: "jakubkalab@gmail.com", password: "testtesttest"})
+# Users.create(%{email: "jakubkalab@gmail.com", password: "testtesttest"})

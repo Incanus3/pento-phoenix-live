@@ -3,12 +3,16 @@ defmodule PentoWeb.Router do
 
   import PentoWeb.UserAuth
 
+  alias PentoWeb.Layouts
+  alias PentoWeb.Telemetry
+
   alias PentoWeb.{
-    Layouts,
-    UserAuth,
     PageController,
-    UserSessionController,
-    GuessingGameLive,
+    GuessingGameLive
+  }
+
+  alias PentoWeb.{
+    UserAuth,
     UserConfirmationLive,
     UserConfirmationInstructionsLive,
     UserLoginLive,
@@ -16,7 +20,7 @@ defmodule PentoWeb.Router do
     UserRegistrationLive,
     UserResetPasswordLive,
     UserSettingsLive,
-    Telemetry
+    UserSessionController
   }
 
   pipeline :browser do
@@ -65,7 +69,8 @@ defmodule PentoWeb.Router do
     pipe_through([:browser, :require_authenticated_user])
 
     live_session(:require_authenticated_user,
-      on_mount: [{UserAuth, :ensure_authenticated}]
+      on_mount: [{UserAuth, :ensure_authenticated}],
+      root_layout: {Layouts, :root}
     ) do
       live("/users/settings", UserSettingsLive, :edit)
       live("/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email)

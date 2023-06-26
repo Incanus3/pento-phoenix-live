@@ -3,6 +3,7 @@ defmodule PentoWeb.UserAuth do
 
   import Plug.Conn
   import Phoenix.Controller
+  import Phoenix.Component, only: [assign_new: 3]
 
   alias Pento.Accounts
 
@@ -173,7 +174,9 @@ defmodule PentoWeb.UserAuth do
   end
 
   defp mount_current_user(socket, session) do
-    Phoenix.Component.assign_new(socket, :current_user, fn ->
+    socket
+    |> assign_new(:session_id, fn -> session["live_socket_id"] end)
+    |> assign_new(:current_user, fn ->
       if user_token = session["user_token"] do
         Accounts.get_user_by_session_token(user_token)
       end
